@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nodejs on LeosBits</title>
+    <link>https://leosbits.github.io/tags/nodejs/</link>
+    <description>Recent content in Nodejs on LeosBits</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 29 Jun 2019 23:27:00 +0300</lastBuildDate>
+    
+	<atom:link href="https://leosbits.github.io/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Distribute Electron App</title>
+      <link>https://leosbits.github.io/posts/electron_dist/</link>
+      <pubDate>Sat, 29 Jun 2019 23:27:00 +0300</pubDate>
+      
+      <guid>https://leosbits.github.io/posts/electron_dist/</guid>
+      <description>In my last post, Electron with SQLite, I looked into how to set up the electron-sqlite environment. This is just the 0&amp;rsquo;th step to a proper electron app.
+In this article I&amp;rsquo;ll describe how to build a basic package and in future articles, we will talk how to integrate basic web frameworks like webpack, react and typescript.
+First, lets talk about basic electron stuff. For a basic electron app you will need:</description>
+    </item>
+    
+    <item>
+      <title>Electron with SQLite</title>
+      <link>https://leosbits.github.io/posts/electron_sqlite/</link>
+      <pubDate>Fri, 21 Jun 2019 23:27:00 +0300</pubDate>
+      
+      <guid>https://leosbits.github.io/posts/electron_sqlite/</guid>
+      <description>We want to build an Electron app with the ability to use Sqlite locally.
+First, we need to understand what we want. Electron is a framework (Formally &amp;lsquo;Atom Shell&amp;rsquo;) That is based on Chromium and the Node.js runtime. There are several ways to build the Electron app. Electron builder is one of them, and as you will see, the build process depends on the os and external libraries we will want to target.</description>
+    </item>
+    
+  </channel>
+</rss>

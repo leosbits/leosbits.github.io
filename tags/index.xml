@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on LeosBits</title>
+    <link>https://leosbits.github.io/tags/</link>
+    <description>Recent content in Tags on LeosBits</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 29 Jun 2019 23:27:00 +0300</lastBuildDate>
+    
+	<atom:link href="https://leosbits.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Build</title>
+      <link>https://leosbits.github.io/tags/build/</link>
+      <pubDate>Sat, 29 Jun 2019 23:27:00 +0300</pubDate>
+      
+      <guid>https://leosbits.github.io/tags/build/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Distribute</title>
+      <link>https://leosbits.github.io/tags/distribute/</link>
+      <pubDate>Sat, 29 Jun 2019 23:27:00 +0300</pubDate>
+      
+      <guid>https://leosbits.github.io/tags/distribute/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Documentation</title>
+      <link>https://leosbits.github.io/tags/documentation/</link>
+      <pubDate>Sat, 29 Jun 2019 23:27:00 +0300</pubDate>
+      
+      <guid>https://leosbits.github.io/tags/documentation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Electron</title>
+      <link>https://leosbits.github.io/tags/electron/</link>
+      <pubDate>Sat, 29 Jun 2019 23:27:00 +0300</pubDate>
+      
+      <guid>https://leosbits.github.io/tags/electron/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nodejs</title>
+      <link>https://leosbits.github.io/tags/nodejs/</link>
+      <pubDate>Sat, 29 Jun 2019 23:27:00 +0300</pubDate>
+      
+      <guid>https://leosbits.github.io/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sqlite</title>
+      <link>https://leosbits.github.io/tags/sqlite/</link>
+      <pubDate>Fri, 21 Jun 2019 23:27:00 +0300</pubDate>
+      
+      <guid>https://leosbits.github.io/tags/sqlite/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="leosbits ">
+<meta name="description"
+    content="We want to build an Electron app with the ability to use Sqlite locally.
+First, we need to understand what we want. Electron is a framework (Formally &amp;lsquo;Atom Shell&amp;rsquo;) That is based on Chromium and the Node.js runtime. There are several ways to build the Electron app. Electron builder is one of them, and as you will see, the build process depends on the os and external libraries we will want to target." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://leosbits.github.io/posts/electron_sqlite/" />
+
+
+<title>
+    
+    Electron with SQLite :: LeosBits  — Some Bits
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.min.1337a80a1554174dd200bc741558520db0ce9c4151383bba0a177383d85e98e6.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="Electron with SQLite">
+<meta itemprop="description" content="We want to build an Electron app with the ability to use Sqlite locally.
+First, we need to understand what we want. Electron is a framework (Formally &lsquo;Atom Shell&rsquo;) That is based on Chromium and the Node.js runtime. There are several ways to build the Electron app. Electron builder is one of them, and as you will see, the build process depends on the os and external libraries we will want to target.">
+
+
+<meta itemprop="datePublished" content="2019-06-21T23:27:00&#43;03:00" />
+<meta itemprop="dateModified" content="2019-06-21T23:27:00&#43;03:00" />
+<meta itemprop="wordCount" content="922">
+
+
+
+<meta itemprop="keywords" content="Documentation,Electron,Nodejs,Sqlite," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leosbits.github.io/"/>
+
+<meta name="twitter:title" content="Electron with SQLite"/>
+<meta name="twitter:description" content="We want to build an Electron app with the ability to use Sqlite locally.
+First, we need to understand what we want. Electron is a framework (Formally &lsquo;Atom Shell&rsquo;) That is based on Chromium and the Node.js runtime. There are several ways to build the Electron app. Electron builder is one of them, and as you will see, the build process depends on the os and external libraries we will want to target."/>
+
+
+
+
+<meta property="article:published_time" content="2019-06-21 23:27:00 &#43;0300 &#43;0300" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">leosbits home</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leosbits.github.io/posts">Bits</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        
+        <article class="post-article">
+        
+        
+            <h1 class="post-title"><a href="https://leosbits.github.io/posts/electron_sqlite/">Electron with SQLite</a></h1>
+
+            
+
+            <div class="post-content">
+                
+
+<p>We want to build an Electron app with the ability to use Sqlite locally.</p>
+
+<p>First, we need to understand what we want. <a href="https://electronjs.org">Electron</a> is a framework (Formally &lsquo;Atom Shell&rsquo;) That is based on Chromium and the Node.js runtime. There are several ways to <em>build</em> the Electron app. <a href="https://github.com/electron-userland/electron-builder">Electron builder</a> is one of them, and as you will see, the build process depends on the os and external libraries we will want to target. Normally, we will not worry about external libraries, but we do have some unique requirements for adding SQLite to our project.</p>
+
+<h2 id="basic-election-app">Basic election app</h2>
+
+<p>So we will start by initiating an npm project with electron and electron-builder dependencies:</p>
+
+<pre><code>npm init
+npm install -D electron electron-builder
+</code></pre>
+
+<p>The -D option is for <em>devDependencies</em>.</p>
+
+<p>Electron requires 2 js files: The <em>main</em> app script and a <em>renderer</em> script.
+- The renderer script is the one that is referenced in the main HTML file.
+- The main script is the one that tells Electron which HTML file it needs to load.</p>
+
+<p>The renderer script can use the node.js context, that means that you can <em>require</em> libraries just like any node project.</p>
+
+<p>Add the script command to your package.json file:</p>
+
+<pre><code class="language-json">&quot;start&quot;: &quot;electron .&quot;
+</code></pre>
+
+<p>Set the main entry of the project to be the main js script.</p>
+
+<p>And, for electron-builder add the run script the the build property to the project (Example for Windows):</p>
+
+<pre><code class="language-json">  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;electron-builder&quot;
+  },
+  &quot;build&quot;: {
+    &quot;appId&quot;: &quot;com.example.app&quot;,
+    &quot;win&quot;: {
+      &quot;target&quot;: &quot;portable&quot;
+    }
+  },
+</code></pre>
+
+<p>And</p>
+
+<p>You can use the <a href="https://github.com/electron/electron-quick-start">electron-quick-start</a> as a reference. From there you can install and use any web package that you want, including react and redux.</p>
+
+<h2 id="binding-and-building">Binding and building</h2>
+
+<p>Now lets talk about special libraries, one of them is SQLite for node.js and Electron. Some libraries are not written in javascript for node.js, they are written in C (For example). We can build them and bind (integrate) them to node.js if we want to use them in a node.js project. But we need to bind them specifically to Electron if we want to use them in an Electron app.</p>
+
+<p>Binding means letting javascript code to call the compiled native code. Notice that binding is dependant on:</p>
+
+<ul>
+<li>Electron (or node.js) version</li>
+<li>The target OS and architecture (Windows/linux and x64/arm)</li>
+</ul>
+
+<h2 id="prepare-testing-script">Prepare testing script</h2>
+
+<p>We can use a basic sqlite javascript code to test that everything works. Write the following in the renderer.js file:</p>
+
+<pre><code class="language-JavaScript">var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('file.db');
+ 
+db.serialize(function() {
+    db.run(&quot;PRAGMA KEY = 'key';&quot;);
+
+  db.run(&quot;CREATE TABLE test (col1 TEXT)&quot;);
+ 
+  var stmt = db.prepare(&quot;INSERT INTO test VALUES (?)&quot;);
+  for (var i = 0; i &lt; 10; i++) {
+      stmt.run(&quot;row &quot; + i);
+  }
+  stmt.finalize();
+ 
+  db.each(&quot;SELECT rowid AS id, col1 FROM test&quot;, function(err, row) {
+      console.log(row.id + &quot;: &quot; + row.col1);
+  });
+});
+ 
+db.close();
+</code></pre>
+
+<p>Open the Developer Tools in the app to see the result.</p>
+
+<h2 id="setup-environment">Setup environment</h2>
+
+<p>luckily, <a href="https://github.com/electron/electron-rebuild">electron-rebuild</a> can find native modules and build them for electron. You can add it to your postinstall script:</p>
+
+<pre><code class="language-json">{
+  &quot;scripts&quot;: {
+    &quot;postscript&quot;: &quot;electron-rebuild&quot;
+  }
+}
+</code></pre>
+
+<p>The semi-manual way is to use <a href="https://github.com/nodejs/node-gyp">node-gyp</a> to manually build and bind a module. But, in order to use it we need we need the compilation tools that will do the job.</p>
+
+<p>Mainly, you will need to:</p>
+
+<ul>
+<li>Install this module globally (The -g option)</li>
+<li>Install python 2.7</li>
+<li>Set the python <em>executable</em> in configuration:<br />
+<code>node-gyp --python /path/to/python2.7</code> or<br />
+<code>npm config set python /path/to/executable/python2.7</code></li>
+<li>Install windows-build-tools (14.0)
+
+<ul>
+<li>First try: <code>npm install --global --production windows-build-tools</code></li>
+<li>If it does not work, try install the full visual studio application</li>
+</ul></li>
+</ul>
+
+<h2 id="install-sqlite3">Install sqlite3</h2>
+
+<p>Now, normally, all we need to do to add sqlite is: <code>
+npm install sqlite3 --build-from-source</code>. This will download, build and bind sqlite3 to node. But we want to bind it to electron.</p>
+
+<p>So we can just call our newly postscript with <em>electron-rebuild</em> or build manually:</p>
+
+<ul>
+<li>For installing and building once. You can execute:<br />
+<code>npm install sqlite3 --build-from-source --target_platform=win32 --runtime=electron --target=5.0.4</code><br />
+Change the electron version in the target option. This way you can also build for node by changing the runtime option to node (delete the target option).<br />
+This may not work and may not create the module in your project.</li>
+<li>Or, just Download sqlite3 and build latter. Execute:<br />
+<code>npm install sqlite3 --ignore-scripts</code><br />
+This will download the module but will not execute the postinstall script so it would not try to build it.</li>
+</ul>
+
+<p>In order to build and bind the native module we use <em>node-gyp</em>. Here is the basic idea:</p>
+
+<pre><code class="language-json">{&quot;postinstall&quot;: &quot;cd node_modules/sqlite3 &amp;&amp; node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/electron-v5.0-win32-x64 &amp;&amp; node-gyp rebuild --target=5.0.4 --arch=x64 --target_platform=win32 --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/electron-v5.0-win32-x64&quot;}
+</code></pre>
+
+<p>Notice important options:</p>
+
+<ul>
+<li>The target option states the Electron version to bind to.<br />
+You can find the exact value inside the Electron directory in the <em>version</em> file.</li>
+<li>The target platform option states the OS, it can be win32/linux/darwin or others.</li>
+<li>The module path option states where the binding will be placed, it is important to that the name will match the version and the targets.</li>
+</ul>
+
+<h2 id="sqlchiper-and-encryption">SQLChiper and encryption</h2>
+
+<p>What if we want to use encryption with sqlite? Sadly, sqlite does not support encryption out of the box.</p>
+
+<p>However, there are different solutions for that. One of them is to use the <em>sqlcipher</em> solution which is sort of a fork of sqlite that implements encryption on top of the standard API. So we can basically replace the source code we build from, add some compiler definitions and we are done.</p>
+
+<p>SQLCipher uses openssl so we need to deal with that too.</p>
+
+<h2 id="sources">Sources:</h2>
+
+<p>There are two libraries that already done SQLChiper:<br />
+<a href="https://github.com/journeyapps/node-sqlcipher">https://github.com/journeyapps/node-sqlcipher</a><br />
+<a href="https://github.com/liubiggun/node-sqlite3">https://github.com/liubiggun/node-sqlite3</a></p>
+
+<p>Electron native modules:<br />
+<a href="https://electronjs.org/docs/tutorial/using-native-node-modules">https://electronjs.org/docs/tutorial/using-native-node-modules</a></p>
+
+<p>SQLite3 sources and node repo:<br />
+<a href="https://www.npmjs.com/package/sqlite3">https://www.npmjs.com/package/sqlite3</a><br />
+<a href="https://github.com/mapbox/node-sqlite3">https://github.com/mapbox/node-sqlite3</a></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leosbits.github.io/tags/documentation">Documentation</a></span><span class="tag"><a href="https://leosbits.github.io/tags/electron">Electron</a></span><span class="tag"><a href="https://leosbits.github.io/tags/nodejs">Nodejs</a></span><span class="tag"><a href="https://leosbits.github.io/tags/sqlite">Sqlite</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>922 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-06-21</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Read other posts</span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leosbits.github.io/posts/electron_dist/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Distribute Electron App</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://leosbits.github.io/">leosbits</a></span>
+            
+            <span></span>
+            <span> <a href="https://leosbits.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content powered">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Theme based on <a href="https://github.com/rhazdon">rhazdon</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="/bundle.min.cf7871ed49474a80ed457154d24e61f7881adbe0f9384951a74ac46b688a39a4dbfa68bc6d37baeb058186de354ead3487d4ee7f083ea4cba860c48600b694f3.js" integrity="sha512-z3hx7UlHSoDtRXFU0k5h94ga2&#43;D5OElRp0rEa2iKOaTb&#43;mi8bTe66wWBht41Tq00h9Tufwg&#43;pMuoYMSGALaU8w=="></script>
+
+
+
+    </body>
+</html>

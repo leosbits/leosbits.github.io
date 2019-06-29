@@ -1,0 +1,262 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on LeosBits</title>
+        <link>https://leosbits.github.io/posts/</link>
+        <description>Recent content in Posts on LeosBits</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sat, 29 Jun 2019 23:27:00 +0300</lastBuildDate>
+        <atom:link href="https://leosbits.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Distribute Electron App</title>
+            <link>https://leosbits.github.io/posts/electron_dist/</link>
+            <pubDate>Sat, 29 Jun 2019 23:27:00 +0300</pubDate>
+            
+            <guid>https://leosbits.github.io/posts/electron_dist/</guid>
+            <description>In my last post, Electron with SQLite, I looked into how to set up the electron-sqlite environment. This is just the 0&amp;rsquo;th step to a proper electron app.
+In this article I&amp;rsquo;ll describe how to build a basic package and in future articles, we will talk how to integrate basic web frameworks like webpack, react and typescript.
+First, lets talk about basic electron stuff. For a basic electron app you will need:</description>
+            <content type="html"><![CDATA[<p>In my last post, <a href="https://leosbits.github.io/posts/electron_sqlite/">Electron with SQLite</a>, I looked into how to set up the electron-sqlite environment. This is just the 0&rsquo;th step to a proper electron app.</p>
+
+<p>In this article I&rsquo;ll describe how to build a <strong>basic</strong> package and in future articles, we will talk how to integrate basic web frameworks like <strong>webpack</strong>, <strong>react</strong> and <strong>typescript</strong>.</p>
+
+<p>First, lets talk about basic electron stuff. For a basic electron app you will need:</p>
+
+<ul>
+<li><strong>package.json</strong> file that describes you app. (trivial). The <em>main</em> key will point to the main.js file.</li>
+<li><strong>main.js</strong> that electron first loads. that script tells electron how to handle platform events and which html file to load to the UI. It can load it from local file or from a URL (We will use it during development).</li>
+<li><strong>index.html</strong> that main.js loads into the UI. It is no special file. Just HTML that will reference a script file we will name renderer.js.</li>
+<li><strong>renderer.js</strong> is where your actual app logic goes. It gets electron (and thus node) context.</li>
+</ul>
+
+<p>If you are familiar with web development, <em>renderer.js</em> is where your app goes. If you will use <em>react</em>, it will be there. There is really only one different. In electron, the renderer.js gets the Electron and Node context. That means you can use <strong>require</strong> to load modules, where in regular web development you can&rsquo;t. That&rsquo;s because the browser does not contain your modules and even does not recognize the <em>require</em> keyword. That is important to remember when you will later structure your application or use <em>webpack</em>.</p>
+
+<p>We will use <a href="https://github.com/electron-userland/electron-builder">electron-builder</a> in order to build our electron app. There are other tools to do that, but we will stick with it for this article.</p>
+
+<p>Steps we need to do:</p>
+
+<ul>
+<li>Move main.js, index.html and renderer.js files into a <strong>public</strong> folder. This folder will contain only &ldquo;public&rdquo; resources, final files we want in our package.</li>
+<li>Direct <em>main</em> key in the <em>package.json</em> file to <em>public\main.js</em></li>
+<li>Direct <em>main.js</em> to <em>index.html</em>, Something like this:
+<code>mainWindow.loadFile('public/index.html');</code><br />
+Notice the path is relative to the app root directory even though main.js is in the public directory.</li>
+<li>Direct <em>index.html</em> to <em>renderer.js</em>.</li>
+</ul>
+
+<p>Now we will add these to <em>package.json</em>:</p>
+
+<pre><code class="language-json">{
+  &quot;main&quot;: &quot;public/main.js&quot;,
+  &quot;scripts&quot;: {&quot;build&quot;: &quot;electron-builder&quot; },
+  &quot;build&quot;: {
+    &quot;appId&quot;: &quot;com.example.app&quot;,
+    &quot;files&quot;: [
+      &quot;!*&quot;,
+      &quot;public/&quot;,
+      &quot;package.json&quot;
+    ]
+  }
+}
+</code></pre>
+
+<p>There are a lot of configuration options, but we will focus on the <strong>files</strong> key. This key indicates the builder which files to include in the final package.</p>
+
+<p>By default:</p>
+
+<ul>
+<li>It takes all the content inside the app directory.</li>
+<li>It takes only node_modules that are in <em>dependencies</em>, That&rsquo;s why you will need to clean <em>dependencies</em> up and move development stuff into <em>devDependencies</em>, for example:
+
+<ul>
+<li>electron-builder: in devDependencies</li>
+<li>webpack: in devDependencies</li>
+<li>react: in dependencies</li>
+<li>sqlite3: in dependencies</li>
+</ul></li>
+<li>It cleans the actual <em>package.json</em> files that goes into the directory and removes some stuff.</li>
+</ul>
+
+<p>So, in order to tell the builder not to include <strong>ALL YOUR SOURCE FILES</strong> including some sensitive stuff, we tell it to ignore all but the public directory.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Electron with SQLite</title>
+            <link>https://leosbits.github.io/posts/electron_sqlite/</link>
+            <pubDate>Fri, 21 Jun 2019 23:27:00 +0300</pubDate>
+            
+            <guid>https://leosbits.github.io/posts/electron_sqlite/</guid>
+            <description>We want to build an Electron app with the ability to use Sqlite locally.
+First, we need to understand what we want. Electron is a framework (Formally &amp;lsquo;Atom Shell&amp;rsquo;) That is based on Chromium and the Node.js runtime. There are several ways to build the Electron app. Electron builder is one of them, and as you will see, the build process depends on the os and external libraries we will want to target.</description>
+            <content type="html"><![CDATA[
+
+<p>We want to build an Electron app with the ability to use Sqlite locally.</p>
+
+<p>First, we need to understand what we want. <a href="https://electronjs.org">Electron</a> is a framework (Formally &lsquo;Atom Shell&rsquo;) That is based on Chromium and the Node.js runtime. There are several ways to <em>build</em> the Electron app. <a href="https://github.com/electron-userland/electron-builder">Electron builder</a> is one of them, and as you will see, the build process depends on the os and external libraries we will want to target. Normally, we will not worry about external libraries, but we do have some unique requirements for adding SQLite to our project.</p>
+
+<h2 id="basic-election-app">Basic election app</h2>
+
+<p>So we will start by initiating an npm project with electron and electron-builder dependencies:</p>
+
+<pre><code>npm init
+npm install -D electron electron-builder
+</code></pre>
+
+<p>The -D option is for <em>devDependencies</em>.</p>
+
+<p>Electron requires 2 js files: The <em>main</em> app script and a <em>renderer</em> script.
+- The renderer script is the one that is referenced in the main HTML file.
+- The main script is the one that tells Electron which HTML file it needs to load.</p>
+
+<p>The renderer script can use the node.js context, that means that you can <em>require</em> libraries just like any node project.</p>
+
+<p>Add the script command to your package.json file:</p>
+
+<pre><code class="language-json">&quot;start&quot;: &quot;electron .&quot;
+</code></pre>
+
+<p>Set the main entry of the project to be the main js script.</p>
+
+<p>And, for electron-builder add the run script the the build property to the project (Example for Windows):</p>
+
+<pre><code class="language-json">  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;electron-builder&quot;
+  },
+  &quot;build&quot;: {
+    &quot;appId&quot;: &quot;com.example.app&quot;,
+    &quot;win&quot;: {
+      &quot;target&quot;: &quot;portable&quot;
+    }
+  },
+</code></pre>
+
+<p>And</p>
+
+<p>You can use the <a href="https://github.com/electron/electron-quick-start">electron-quick-start</a> as a reference. From there you can install and use any web package that you want, including react and redux.</p>
+
+<h2 id="binding-and-building">Binding and building</h2>
+
+<p>Now lets talk about special libraries, one of them is SQLite for node.js and Electron. Some libraries are not written in javascript for node.js, they are written in C (For example). We can build them and bind (integrate) them to node.js if we want to use them in a node.js project. But we need to bind them specifically to Electron if we want to use them in an Electron app.</p>
+
+<p>Binding means letting javascript code to call the compiled native code. Notice that binding is dependant on:</p>
+
+<ul>
+<li>Electron (or node.js) version</li>
+<li>The target OS and architecture (Windows/linux and x64/arm)</li>
+</ul>
+
+<h2 id="prepare-testing-script">Prepare testing script</h2>
+
+<p>We can use a basic sqlite javascript code to test that everything works. Write the following in the renderer.js file:</p>
+
+<pre><code class="language-JavaScript">var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('file.db');
+ 
+db.serialize(function() {
+    db.run(&quot;PRAGMA KEY = 'key';&quot;);
+
+  db.run(&quot;CREATE TABLE test (col1 TEXT)&quot;);
+ 
+  var stmt = db.prepare(&quot;INSERT INTO test VALUES (?)&quot;);
+  for (var i = 0; i &lt; 10; i++) {
+      stmt.run(&quot;row &quot; + i);
+  }
+  stmt.finalize();
+ 
+  db.each(&quot;SELECT rowid AS id, col1 FROM test&quot;, function(err, row) {
+      console.log(row.id + &quot;: &quot; + row.col1);
+  });
+});
+ 
+db.close();
+</code></pre>
+
+<p>Open the Developer Tools in the app to see the result.</p>
+
+<h2 id="setup-environment">Setup environment</h2>
+
+<p>luckily, <a href="https://github.com/electron/electron-rebuild">electron-rebuild</a> can find native modules and build them for electron. You can add it to your postinstall script:</p>
+
+<pre><code class="language-json">{
+  &quot;scripts&quot;: {
+    &quot;postscript&quot;: &quot;electron-rebuild&quot;
+  }
+}
+</code></pre>
+
+<p>The semi-manual way is to use <a href="https://github.com/nodejs/node-gyp">node-gyp</a> to manually build and bind a module. But, in order to use it we need we need the compilation tools that will do the job.</p>
+
+<p>Mainly, you will need to:</p>
+
+<ul>
+<li>Install this module globally (The -g option)</li>
+<li>Install python 2.7</li>
+<li>Set the python <em>executable</em> in configuration:<br />
+<code>node-gyp --python /path/to/python2.7</code> or<br />
+<code>npm config set python /path/to/executable/python2.7</code></li>
+<li>Install windows-build-tools (14.0)
+
+<ul>
+<li>First try: <code>npm install --global --production windows-build-tools</code></li>
+<li>If it does not work, try install the full visual studio application</li>
+</ul></li>
+</ul>
+
+<h2 id="install-sqlite3">Install sqlite3</h2>
+
+<p>Now, normally, all we need to do to add sqlite is: <code>
+npm install sqlite3 --build-from-source</code>. This will download, build and bind sqlite3 to node. But we want to bind it to electron.</p>
+
+<p>So we can just call our newly postscript with <em>electron-rebuild</em> or build manually:</p>
+
+<ul>
+<li>For installing and building once. You can execute:<br />
+<code>npm install sqlite3 --build-from-source --target_platform=win32 --runtime=electron --target=5.0.4</code><br />
+Change the electron version in the target option. This way you can also build for node by changing the runtime option to node (delete the target option).<br />
+This may not work and may not create the module in your project.</li>
+<li>Or, just Download sqlite3 and build latter. Execute:<br />
+<code>npm install sqlite3 --ignore-scripts</code><br />
+This will download the module but will not execute the postinstall script so it would not try to build it.</li>
+</ul>
+
+<p>In order to build and bind the native module we use <em>node-gyp</em>. Here is the basic idea:</p>
+
+<pre><code class="language-json">{&quot;postinstall&quot;: &quot;cd node_modules/sqlite3 &amp;&amp; node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/electron-v5.0-win32-x64 &amp;&amp; node-gyp rebuild --target=5.0.4 --arch=x64 --target_platform=win32 --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/electron-v5.0-win32-x64&quot;}
+</code></pre>
+
+<p>Notice important options:</p>
+
+<ul>
+<li>The target option states the Electron version to bind to.<br />
+You can find the exact value inside the Electron directory in the <em>version</em> file.</li>
+<li>The target platform option states the OS, it can be win32/linux/darwin or others.</li>
+<li>The module path option states where the binding will be placed, it is important to that the name will match the version and the targets.</li>
+</ul>
+
+<h2 id="sqlchiper-and-encryption">SQLChiper and encryption</h2>
+
+<p>What if we want to use encryption with sqlite? Sadly, sqlite does not support encryption out of the box.</p>
+
+<p>However, there are different solutions for that. One of them is to use the <em>sqlcipher</em> solution which is sort of a fork of sqlite that implements encryption on top of the standard API. So we can basically replace the source code we build from, add some compiler definitions and we are done.</p>
+
+<p>SQLCipher uses openssl so we need to deal with that too.</p>
+
+<h2 id="sources">Sources:</h2>
+
+<p>There are two libraries that already done SQLChiper:<br />
+<a href="https://github.com/journeyapps/node-sqlcipher">https://github.com/journeyapps/node-sqlcipher</a><br />
+<a href="https://github.com/liubiggun/node-sqlite3">https://github.com/liubiggun/node-sqlite3</a></p>
+
+<p>Electron native modules:<br />
+<a href="https://electronjs.org/docs/tutorial/using-native-node-modules">https://electronjs.org/docs/tutorial/using-native-node-modules</a></p>
+
+<p>SQLite3 sources and node repo:<br />
+<a href="https://www.npmjs.com/package/sqlite3">https://www.npmjs.com/package/sqlite3</a><br />
+<a href="https://github.com/mapbox/node-sqlite3">https://github.com/mapbox/node-sqlite3</a></p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>

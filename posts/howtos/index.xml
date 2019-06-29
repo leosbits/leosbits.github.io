@@ -1,0 +1,11 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>How to.. on LeosBits</title>
+        <link>https://leosbits.github.io/posts/howtos/</link>
+        <description>Recent content in How to.. on LeosBits</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <atom:link href="https://leosbits.github.io/posts/howtos/index.xml" rel="self" type="application/rss+xml" />
+        
+    </channel>
+</rss>
